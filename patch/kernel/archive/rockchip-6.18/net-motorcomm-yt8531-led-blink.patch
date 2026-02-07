@@ -1,0 +1,63 @@
+diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
+index b498975..02e9a7a 100644
+--- a/drivers/net/phy/motorcomm.c
++++ b/drivers/net/phy/motorcomm.c
+@@ -218,6 +218,7 @@
+ #define YT8521_LED0_CFG_REG			0xA00C
+ #define YT8521_LED1_CFG_REG			0xA00D
+ #define YT8521_LED2_CFG_REG			0xA00E
++#define YT8521_LED_BLINK_CFG_REG		0xA00F
+ #define YT8521_LED_ACT_BLK_IND			BIT(13)
+ #define YT8521_LED_FDX_ON_EN			BIT(12)
+ #define YT8521_LED_HDX_ON_EN			BIT(11)
+@@ -1795,6 +1796,38 @@ static int yt8521_led_hw_control_get(struct phy_device *phydev, u8 index,
+ 	return 0;
+ }
+ 
++/**
++ * yt8531_led_init() - Initialize LED firmware for YT8531
++ * @phydev: a pointer to a &struct phy_device
++ *
++ * NOTE: YT8531 needs special LED firmware initialization to enable
++ * all LED indicators (LED0, LED1, LED2) to work properly.
++ * This mimics the vendor driver's phy_yt8531_led_fixup() function.
++ *
++ * Returns: 0 or negative errno code
++ */
++static int yt8531_led_init(struct phy_device *phydev)
++{
++	int ret;
++
++	/* LED1_CFG */
++	ret = ytphy_write_ext_with_lock(phydev, YT8521_LED1_CFG_REG, 0x670);
++	if (ret < 0)
++		return ret;
++
++	/* LED2_CFG */
++	ret = ytphy_write_ext_with_lock(phydev, YT8521_LED2_CFG_REG, 0x2070);
++	if (ret < 0)
++		return ret;
++
++	/* LED_BLINK_CFG */
++	ret = ytphy_write_ext_with_lock(phydev, YT8521_LED_BLINK_CFG_REG, 0x7e);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
+ static int yt8531_config_init(struct phy_device *phydev)
+ {
+ 	struct device_node *node = phydev->mdio.dev.of_node;
+@@ -1826,6 +1859,11 @@ static int yt8531_config_init(struct phy_device *phydev)
+ 	if (ret < 0)
+ 		return ret;
+ 
++    /* Initialize LED firmware */
++    ret = yt8531_led_init(phydev);
++    if (ret < 0)
++        return ret;
++
+ 	return 0;
+ }
+ 
