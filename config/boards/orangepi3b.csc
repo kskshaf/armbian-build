@@ -18,8 +18,8 @@ function post_family_config__orangepi3b_use_mainline_uboot() {
 	display_alert "$BOARD" "Using mainline U-Boot for $BOARD / $BRANCH" "info"
 
 	declare -g BOOTSOURCE="https://github.com/u-boot/u-boot.git"
-	declare -g BOOTBRANCH="tag:v2024.10"
-	declare -g BOOTPATCHDIR="v2024.10"
+	declare -g BOOTBRANCH="tag:v2026.01"
+	declare -g BOOTPATCHDIR="v2026.01"
 	declare -g BOOTDELAY=1
 
 	declare -g UBOOT_TARGET_MAP="BL31=${RKBIN_DIR}/${BL31_BLOB} ROCKCHIP_TPL=${RKBIN_DIR}/${DDR_BLOB};;u-boot-rockchip.bin u-boot-rockchip-spi.bin u-boot.itb idbloader.img idbloader-spi.img"
