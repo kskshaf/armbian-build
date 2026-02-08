@@ -8,6 +8,17 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3308-b@1.3ghz.dtbo \
 	rk3308-bs.dtbo rk3308-bs@1.3ghz.dtbo \
 	rk3308-pcm5102a.dtbo \
+	rk3566-i2c2-m1.dtso \
+	rk3566-i2c3-m0.dtso \
+	rk3566-i2c4-m0.dtso \
+	rk3566-pwm7.dtso \
+	rk3566-pwm11-m1.dtso \
+	rk3566-pwm15-m1.dtso \
+	rk3566-spi3-m0-cs0-spidev.dtso \
+	rk3566-uart2-m0.dtso \
+	rk3566-uart3-m0.dtso \
+	rk3566-uart7-m2.dtso \
+	rk3566-uart9-m2.dtso \
 	rockchip-dusun-010r-rp3328b.dtbo \
 	rockchip-sakurapi-rk3308b-ws2812.dtbo \
 	rockchip-rockpi4cplus-usb-host.dtbo \
