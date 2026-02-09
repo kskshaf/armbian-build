@@ -12,10 +12,9 @@
 	};
 
 	fragment@1 {
-		target = <&fiq_debugger>;
-
+		target-path = "/chosen";
 		__overlay__ {
-			status = "disabled";
+			bootargs = "earlycon=uart8250,mmio32,0xfe660000 console=ttyFIQ0";
 		};
 	};
 };
