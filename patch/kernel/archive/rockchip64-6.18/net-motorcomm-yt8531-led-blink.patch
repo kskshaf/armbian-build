@@ -53,10 +53,10 @@ index b498975..02e9a7a 100644
  	if (ret < 0)
  		return ret;
  
-+    /* Initialize LED firmware */
-+    ret = yt8531_led_init(phydev);
-+    if (ret < 0)
-+        return ret;
++	/* Initialize LED firmware */
++	ret = yt8531_led_init(phydev);
++	if (ret < 0)
++		return ret;
 +
  	return 0;
  }
